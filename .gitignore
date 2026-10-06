@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Local Environment Variables & Secrets
+.env
+.env*.local
+
+# Antigravity & MCP Local Configuration
+.antigravity/
+.mcp.json
+
+# Vite Build Output
+dist/
+
+# OS Metadata
+.DS_Store
+Thumbs.db
