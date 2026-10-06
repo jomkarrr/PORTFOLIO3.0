@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F4F0EB;
+    color: #23211F;
+    font-family: 'Archivo', sans-serif;
+  }
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(35, 33, 31, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
