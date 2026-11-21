@@ -61,21 +61,23 @@ export default function About() {
               </span>
               <div className="divide-y divide-charcoal/15 border-b border-charcoal/15">
                 <a
-                  href="#download-product"
+                  href="/resume-freelancer.pdf"
+                  download
                   className="group flex items-center justify-between py-3 px-1 -mx-1 hover:bg-charcoal/5 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <FileText className="w-4 h-4 text-charcoal/60 group-hover:text-terracotta transition-colors" />
                     <span className="font-mono text-xs sm:text-sm text-charcoal font-semibold tracking-tight">
-                      resume-product.pdf
+                      resume-freelancer.pdf
                     </span>
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-terracotta" />
-                    <span className="text-charcoal/60 text-xs hidden sm:inline">Product Resume</span>
+                    <span className="text-charcoal/60 text-xs hidden sm:inline">Freelancer Resume</span>
                   </div>
                   <Download className="w-4 h-4 text-charcoal/50 group-hover:text-terracotta transition-transform group-hover:translate-y-0.5" />
                 </a>
                 <a
-                  href="#download-developer"
+                  href="/resume-developer.pdf"
+                  download
                   className="group flex items-center justify-between py-3 px-1 -mx-1 hover:bg-charcoal/5 transition-colors"
                 >
                   <div className="flex items-center gap-3">
@@ -84,7 +86,7 @@ export default function About() {
                       resume-developer.pdf
                     </span>
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-terracotta" />
-                    <span className="text-charcoal/60 text-xs hidden sm:inline">Technical Resume</span>
+                    <span className="text-charcoal/60 text-xs hidden sm:inline">Developer Resume</span>
                   </div>
                   <Download className="w-4 h-4 text-charcoal/50 group-hover:text-terracotta transition-transform group-hover:translate-y-0.5" />
                 </a>
