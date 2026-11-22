@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { GitFork, GitCommit, CheckCircle2, ExternalLink, Zap } from 'lucide-react';
-import { usePersona } from '../context/PersonaContext';
 
 function GithubIcon({ className = 'w-4 h-4' }) {
   return (
@@ -13,160 +13,96 @@ function GithubIcon({ className = 'w-4 h-4' }) {
   );
 }
 
-const METRICS_DATA = {
-  developer: [
-    { label: 'Merged PRs Upstream', value: '37+', icon: CheckCircle2 },
-    { label: 'Public Repositories', value: '16+', icon: GitFork },
-    { label: 'Commits Authored', value: '296+', icon: GitCommit },
-    { label: 'Engine SLA & Uptime', value: '99.99%', icon: Zap },
-  ],
-  freelancer: [
-    { label: 'Merged PRs Upstream', value: '37+', icon: CheckCircle2 },
-    { label: 'Public Repositories', value: '16+', icon: GitFork },
-    { label: 'Commits Authored', value: '296+', icon: GitCommit },
-    { label: 'Engine SLA & Uptime', value: '99.99%', icon: Zap },
-  ],
-};
+const GITHUB_USER = 'jomkarrr';
+// Upstream = PRs authored by him in repositories he does NOT own (forked-repo contributions).
+const UPSTREAM_QUERY = `author:${GITHUB_USER} type:pr -user:${GITHUB_USER}`;
+const MORE_ON_GITHUB_URL = `https://github.com/search?q=${encodeURIComponent(
+  UPSTREAM_QUERY
+)}&type=pullrequests`;
 
-const CONTRIBUTIONS_DATA = {
-  developer: [
-    {
-      repoName: 'NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-      repoUrl: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-      prs: [
-        {
-          title: 'CI: add parallel gates, cross-platform tests, coverage floor, and scheduled network checks',
-          badge: 'MERGED',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-        {
-          title: 'feat(gui): Phase 3 - UX modernization (shared theme, spinboxes, tooltips, validation highlighting, ttk migration)',
-          badge: 'MERGED',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-        {
-          title: 'refactor(gui): Phase 2 foundation refactor - GUI helpers, tests, GuiParams, labeled sections',
-          badge: 'PERF +22%',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-        {
-          title: 'Add modular GUI suite with shared helpers, launcher, and README documentation',
-          badge: 'MERGED',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-        {
-          title: 'docs: developer MkDocs site with automated mkdocstrings API reference',
-          badge: 'MERGED',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-      ],
-    },
-    {
-      repoName: 'lunarmodules/terminal.lua',
-      repoUrl: 'https://github.com/lunarmodules/terminal.lua',
-      prs: [
-        {
-          title: 'refactor(width): remove probing/cache and delegate to native LuaSystem',
-          badge: 'MERGED',
-          url: 'https://github.com/lunarmodules/terminal.lua',
-        },
-        {
-          title: 'fix(input): return (nil, err) on read_query_answer timeout',
-          badge: 'BUGFIX',
-          url: 'https://github.com/lunarmodules/terminal.lua',
-        },
-        {
-          title: 'refactor(tab_strip): extract helpers and simplify cross-platform documentation',
-          badge: 'MERGED',
-          url: 'https://github.com/lunarmodules/terminal.lua',
-        },
-      ],
-    },
-    {
-      repoName: 'genATP/genATP',
-      repoUrl: 'https://github.com/genATP/genATP',
-      prs: [
-        {
-          title: 'feat(llm): env-driven provider factory + live agent integration test suite',
-          badge: 'MERGED',
-          url: 'https://github.com/genATP/genATP',
-        },
-      ],
-    },
-    {
-      repoName: 'ioos/ioos_qc',
-      repoUrl: 'https://github.com/ioos/ioos_qc',
-      prs: [
-        {
-          title: 'Add ERDDAP QC workflow automated validation notebook and sensor test data',
-          badge: 'MERGED',
-          url: 'https://github.com/ioos/ioos_qc',
-        },
-      ],
-    },
-  ],
-  freelancer: [
-    {
-      repoName: 'jomkarrr/next-saas-starter',
-      repoUrl: 'https://github.com/jomkarrr',
-      prs: [
-        {
-          title: 'feat(billing): Turnkey Stripe checkout, customer billing portal, and webhook reconciliation',
-          badge: 'MERGED',
-          url: 'https://github.com/jomkarrr',
-        },
-        {
-          title: 'feat(auth): Unified session management with Supabase SSR and role-based ACL',
-          badge: 'SECURITY',
-          url: 'https://github.com/jomkarrr',
-        },
-      ],
-    },
-    {
-      repoName: 'jomkarrr/editorial-portfolio-engine',
-      repoUrl: 'https://github.com/jomkarrr',
-      prs: [
-        {
-          title: 'perf(core-web-vitals): 99.8 Lighthouse score tuning and responsive asset delivery',
-          badge: 'PERF +35%',
-          url: 'https://github.com/jomkarrr',
-        },
-        {
-          title: 'feat(tokens): Multi-persona dynamic context engine and tactile dot-grid canvas',
-          badge: 'MERGED',
-          url: 'https://github.com/jomkarrr',
-        },
-      ],
-    },
-    {
-      repoName: 'NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-      repoUrl: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-      prs: [
-        {
-          title: 'feat(gui): UX modernization, validation highlighting, and cross-platform widget suite',
-          badge: 'MERGED',
-          url: 'https://github.com/NOAA-CO-OPS/dev-Next-Gen-NOS-OFS-Skill-Assessment',
-        },
-      ],
-    },
-    {
-      repoName: 'jomkarrr/vite-micro-app-template',
-      repoUrl: 'https://github.com/jomkarrr',
-      prs: [
-        {
-          title: 'ci(deploy): Automated GitHub Actions edge runner with preview deployments',
-          badge: 'MERGED',
-          url: 'https://github.com/jomkarrr',
-        },
-      ],
-    },
-  ],
-};
+function formatMonthYear(iso) {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  } catch {
+    return '';
+  }
+}
+
+function toGroups(items) {
+  const groups = [];
+  const byRepo = new Map();
+  for (const item of items) {
+    const repoName = item.repository_url.split('/repos/')[1];
+    if (!byRepo.has(repoName)) {
+      byRepo.set(repoName, {
+        repoName,
+        repoUrl: `https://github.com/${repoName}`,
+        prs: [],
+      });
+      groups.push(byRepo.get(repoName));
+    }
+    const merged = Boolean(item.pull_request && item.pull_request.merged_at);
+    byRepo.get(repoName).prs.push({
+      title: item.title,
+      badge: merged ? 'MERGED' : item.state === 'open' ? 'OPEN' : 'CLOSED',
+      url: item.html_url,
+      meta: `#${item.number} · ${formatMonthYear(item.created_at)}`,
+    });
+  }
+  return groups;
+}
 
 export default function OpenSource() {
-  const { persona } = usePersona();
-  const metrics = METRICS_DATA[persona] || METRICS_DATA.developer;
-  const groups = CONTRIBUTIONS_DATA[persona] || CONTRIBUTIONS_DATA.developer;
+  const [groups, setGroups] = useState([]);
+  const [status, setStatus] = useState('loading'); // loading | ready | error
+  const [counts, setCounts] = useState({ merged: null, authored: null, repos: null });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function load() {
+      try {
+        const searchUrl = (q, perPage) =>
+          `https://api.github.com/search/issues?q=${encodeURIComponent(
+            q
+          )}&sort=created&order=desc&per_page=${perPage}`;
+
+        const [listRes, mergedRes, userRes] = await Promise.all([
+          fetch(searchUrl(UPSTREAM_QUERY, 4)),
+          fetch(searchUrl(`${UPSTREAM_QUERY} is:merged`, 1)),
+          fetch(`https://api.github.com/users/${GITHUB_USER}`),
+        ]);
+        if (!listRes.ok) throw new Error('github search failed');
+        const list = await listRes.json();
+        const merged = mergedRes.ok ? await mergedRes.json() : null;
+        const user = userRes.ok ? await userRes.json() : null;
+        if (cancelled) return;
+
+        setGroups(toGroups(list.items || []));
+        setCounts({
+          merged: merged ? merged.total_count : null,
+          authored: typeof list.total_count === 'number' ? list.total_count : null,
+          repos: user ? user.public_repos : null,
+        });
+        setStatus('ready');
+      } catch {
+        if (!cancelled) setStatus('error');
+      }
+    }
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const show = (v) => (status === 'ready' && typeof v === 'number' ? String(v) : '—');
+  const metrics = [
+    { label: 'Merged PRs Upstream', value: show(counts.merged), icon: CheckCircle2 },
+    { label: 'Public Repositories', value: show(counts.repos), icon: GitFork },
+    { label: 'Upstream PRs Authored', value: show(counts.authored), icon: GitCommit },
+    { label: 'Engine SLA & Uptime', value: '99.99%', icon: Zap },
+  ];
 
   return (
     <section id="opensource" className="py-20 border-t border-charcoal/20">
@@ -219,6 +155,21 @@ export default function OpenSource() {
 
           {/* Repositories PR List */}
           <div className="divide-y divide-charcoal/15 border-t border-b border-charcoal/20 bg-[#FAF8F5]">
+            {status === 'loading' && (
+              <div className="p-6 sm:p-7 font-mono text-xs sm:text-[13px] text-charcoal/60 tracking-tight">
+                Fetching live data from GitHub…
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="p-6 sm:p-7 font-mono text-xs sm:text-[13px] text-charcoal/60 tracking-tight">
+                Live data could not be loaded right now — the full history is on GitHub below.
+              </div>
+            )}
+            {status === 'ready' && groups.length === 0 && (
+              <div className="p-6 sm:p-7 font-mono text-xs sm:text-[13px] text-charcoal/60 tracking-tight">
+                The first upstream contributions are in progress — follow along on GitHub below.
+              </div>
+            )}
             {groups.map((group, gIdx) => (
               <div key={gIdx} className="p-6 sm:p-7">
                 {/* Repo Header */}
@@ -253,6 +204,7 @@ export default function OpenSource() {
                         className="text-xs sm:text-[13px] text-charcoal/90 hover:text-terracotta transition-colors leading-relaxed font-sans"
                       >
                         {pr.title}
+                        <span className="font-mono text-[11px] text-charcoal/50"> {pr.meta}</span>
                       </a>
                     </div>
                   ))}
@@ -265,13 +217,13 @@ export default function OpenSource() {
         {/* Bottom CTA Button */}
         <div className="flex justify-start">
           <a
-            href="https://github.com/jomkarrr"
+            href={MORE_ON_GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-5 py-3 border border-charcoal bg-transparent text-charcoal font-mono text-xs font-semibold uppercase tracking-wider hover:bg-charcoal hover:text-linen transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-terracotta"
           >
             <GithubIcon className="w-3.5 h-3.5" />
-            <span>Full History on GitHub ↗</span>
+            <span>More on GitHub ↗</span>
           </a>
         </div>
       </div>
