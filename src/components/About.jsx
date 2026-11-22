@@ -17,7 +17,7 @@ export default function About() {
           </div>
           <div className="w-full h-px bg-charcoal/20 mb-8" />
           <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-charcoal">
-            Building meaningful <span className="italic text-terracotta font-normal">Digital experience</span>.
+            Code with intent. <span className="italic text-terracotta font-normal">Design with taste</span>.
           </h2>
         </div>
 
@@ -27,27 +27,27 @@ export default function About() {
           <div className="lg:col-span-7 flex flex-col pt-1">
             <h3 className="font-serif italic text-2xl sm:text-3xl text-charcoal font-normal leading-snug tracking-tight mb-6">
               {isDeveloper
-                ? 'A engineer who refuses to pick a side between mathematical logic and design craft.'
-                : 'Your dedicated tech partner.'}
+                ? 'Where clean architecture meets interfaces people actually enjoy using.'
+                : 'A developer who treats your product like his own portfolio piece.'}
             </h3>
 
             <div className="text-base sm:text-[16px] text-charcoal/90 leading-relaxed space-y-5 font-sans font-normal">
               {isDeveloper ? (
                 <>
                   <p>
-                    I&apos;m <strong className="font-semibold text-charcoal">Omkar Jadhav</strong>, a product-minded software engineer building scalable full-stack architectures and thoughtful user experiences. My journey began with an obsession for pixel-perfect frontends and evolved into a deep fascination with how <span className="italic text-terracotta font-medium">distributed systems, databases, and network brokers</span> operate under extreme throughput.
+                    I&apos;m <strong className="font-semibold text-charcoal">Omkar Jadhav</strong>, a full-stack developer and second-year CSE student at VIT-AP. My work sits at the seam between engineering and design: typed, maintainable code on the inside, calm and deliberate interfaces on the outside.
                   </p>
                   <p>
-                    I treat every <strong className="font-medium text-charcoal">commit </strong>as a product and usability decision. When I&apos;m not writing code, I analyze systems architecture, optimize query execution, and contribute to open-source tooling. I believe in continuous craftsmanship, attention to micro-details, and the <span className="italic text-terracotta font-medium">compounding power of clean abstractions</span>.
+                    From <strong className="font-medium text-charcoal">CampusEats</strong> to <strong className="font-medium text-charcoal">Aptive Studio</strong>, every project I ship is <span className="italic text-terracotta font-medium">built like a system and finished like a product</span> — documented, deployed, and made to last.
                   </p>
                 </>
               ) : (
                 <>
                   <p>
-                    I&apos;m <strong className="font-semibold text-charcoal">Omkar Jadhav</strong>, an independent digital product engineer partnering with ambitious founders and fast-moving teams to build and launch production web applications from scratch. With 2+ years of experience in modern full-stack development and Web3 integrations, I bridge the gap between design engineering and rock-solid infrastructure.
+                    When you hire me, your product gets the same care I give my own: clean builds, honest timelines, and weekly visible progress.
                   </p>
                   <p>
-                    I operate as an agile, full-cycle technical partner—taking ideas from zero-to-one with rapid MVP prototypes, robust database modeling, and conversion-focused design systems. No bureaucratic agency bloat or communication loss; just rapid delivery, meticulous craft, and a relentless focus on <span className="italic text-terracotta font-medium">measurable venture outcomes</span>.
+                    I&apos;m <strong className="font-semibold text-charcoal">Omkar Jadhav</strong>, a full-stack developer who takes on a small number of projects at a time, so each one gets full attention — <span className="italic text-terracotta font-medium">from the first wireframe to the final deploy</span>.
                   </p>
                 </>
               )}
